@@ -1,0 +1,20 @@
+
+<div class="form-container">
+    <p>Login Comp</p>
+    <form [formGroup]="loginForm" (ngSubmit)="submit()">
+        <mat-form-field>
+            <input matInput placeholder="Email adress" formControlName="email">
+            <mat-error *ngIf="email?.errors?.['required']"> Email is required</mat-error>
+            <!-- <mat-error *ngIf="email?.errors?.['email']"> Enter correct email</mat-error> -->
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="password" formControlName="password" type="password">
+            <mat-error *ngIf="password?.errors?.['required']"> Password is required</mat-error>
+            <mat-error *ngIf="password?.errors?.['password']"> Enter correct password</mat-error>
+        </mat-form-field>
+        <button mat-button color="primary" type="submit">
+            Login
+        </button>
+        <span>New to in Taows? <a routerLink="sing-up">Sing Up!</a></span>
+    </form>
+</div>
