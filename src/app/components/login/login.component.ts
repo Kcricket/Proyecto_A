@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service'
 import { HotToastService } from '@ngneat/hot-toast';
-import { Inject } from '@angular/core'
+import { Input } from '@angular/core'
 
 @Component({
   selector: 'app-login',
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
     email: new FormControl("", [Validators.required, Validators.email]),
     password: new FormControl("", [Validators.required]),
   });
-  constructor(private authService: AuthenticationService, private router: Router, @Inject(Object) private toast: HotToastService) { }
+  constructor(private authService: AuthenticationService, private router: Router, private toast: HotToastService) { }
 
   ngOnInit(): void {
   }

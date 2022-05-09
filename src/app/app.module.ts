@@ -22,8 +22,13 @@ import { SingUpComponent } from './components/sing-up/sing-up.component';
 import { HomeComponent } from './components/home/home.component';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
+
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import {AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+
+
 import { HotToastModule } from '@ngneat/hot-toast';
 
 // import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
@@ -54,9 +59,13 @@ import { HotToastModule } from '@ngneat/hot-toast';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
+
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+    AngularFireModule.initializeApp(environment.firebase), 
+    AngularFirestoreModule,
+
     HotToastModule.forRoot(),
     MatMenuModule
   ],

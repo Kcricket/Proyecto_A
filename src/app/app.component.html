@@ -1,12 +1,14 @@
 <mat-toolbar>
   TAOWS HOME
   <ng-template #loginButton>
-    <button mat-button routerLink="login">Login<mat-icon>Login</mat-icon></button>
+    <button mat-button routerLink="login"><mat-icon>login</mat-icon></button>
   </ng-template>
 
   <!-- Async es un pipe, y se le da el nombre de user -->
   <ng-container *ngIf="authService.currentUser$ | async as user; else loginButton">
-    <button mat-button (click)="logout()">Logout<mat-icon>logout</mat-icon></button>
+    <button mat-button (click)="logout()">
+      <mat-icon>account_circle</mat-icon>
+    </button>
   </ng-container>
 </mat-toolbar>
 
