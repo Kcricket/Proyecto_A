@@ -1,3 +1,54 @@
-<p>home works!</p>
+<div class="containerHome">
+    <p>home works!</p>
+    <h1 *ngIf="user$ | async as user"> Welcome, {{user.email}}</h1>
+    <div class="containerEventos" *ngIf="user$ | async as user">
+        <mat-card class="momCard" *ngFor="let day of this.days ; index as i" style="background-color:aqua">
+            <h1>{{day}}</h1>
+            <br>
+            <mat-card class="sonCard" style="background-color:red" *ngIf="this.claseswc1[i].reserva.nombre != undefined">
+                <p>{{this.claseswc1[i].reserva.nombre}}</p>
+                <p>{{this.claseswc1[i].reserva.hora}}</p>
+                <button mat-button (click)="log(user)" color="primary" type="submit">
+                    Reserva
+                </button>
+            </mat-card>
 
-<h1 *ngIf="user$ | async as user"> Welcome, {{user.displayName}}</h1>
+            <mat-card class="sonCard" style="background-color:red" *ngIf="this.claseswc2[i].reserva.nombre != undefined">
+                <p>{{this.claseswc2[i].reserva.nombre}}</p>
+                <p>{{this.claseswc2[i].reserva.hora}}</p>
+                <button mat-button color="primary" type="submit">
+                    Reserva
+                </button>
+            </mat-card>
+
+            <mat-card class="sonCard" style="background-color:mediumorchid" *ngIf="this.clasesbjj[i].reserva.nombre != undefined">
+                <p>{{this.clasesbjj[i].reserva.nombre}}</p>
+                <p>{{this.clasesbjj[i].reserva.hora}}</p>
+                <button mat-button color="primary" type="submit">
+                    Reserva
+                </button>
+            </mat-card>
+ 
+            <mat-card class="sonCard" style="background-color:mediumorchid" *ngIf="this.clasesbjj2[i].reserva.nombre != undefined">
+                <p>{{this.clasesbjj2[i].reserva.nombre}}</p>
+                <p>{{this.clasesbjj2[i].reserva.hora}}</p>
+                <button mat-button color="primary" type="submit">
+                    Reserva
+                </button>
+            </mat-card>
+
+            <mat-card class="sonCard" style="background-color:greenyellow" *ngIf="this.clasesesk[i].reserva.nombre != undefined">
+                <p>{{this.clasesesk[i].reserva.nombre}}</p>
+                <p>{{this.clasesesk[i].reserva.hora}}</p>
+                <button mat-button color="primary" type="submit">
+                    Reserva
+                </button>
+            </mat-card>
+            <!-- <p>{{this.horario[getDayByDate(i)].clases.wc.a.nombre}}</p>
+            <p>{{this.horario[getDayByDate(i)].clases.wc.b.nombre}}</p> -->
+
+
+            
+        </mat-card>
+    </div>
+</div>

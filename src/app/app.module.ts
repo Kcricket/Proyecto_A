@@ -14,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatCardModule } from '@angular/material/card';
 
 
 import { LandingComponent } from './components/landing/landing.component';
@@ -59,6 +60,7 @@ import { HotToastModule } from '@ngneat/hot-toast';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
+    MatCardModule,
 
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),

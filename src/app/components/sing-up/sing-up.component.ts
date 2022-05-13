@@ -20,6 +20,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import {environment} from "../../../environments/environment"
+import { user } from '@angular/fire/auth';
 
 export function passwordsMatchValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -46,6 +47,7 @@ export class SingUpComponent implements OnInit {
   items: Observable<any[]>;
 
   db = getFirestore();
+  user$ = this.authService.currentUser$;
 
   signUpForm = new FormGroup(
     {
@@ -94,7 +96,7 @@ export class SingUpComponent implements OnInit {
   //   this.usersCollection.add(usuario);
   // }
 ///Cambiar la variable nombre
-  submit() {
+  async submit() {
     if (!this.signUpForm.valid) {
       return;
     }
@@ -113,15 +115,17 @@ export class SingUpComponent implements OnInit {
       )
       .subscribe(() => {
         this.router.navigate(['/home']);
-      })
+      }) 
       try {
-        const docRef = addDoc(collection(this.db, "usuarios"), {
+
+        let docRef = await addDoc(collection(this.db, "usuarios"), {
           nombre: nombre,
           email: email,
           dni: dni, 
-          grado:grado
+          grado:grado,
+          fecha: new Date().toDateString()
         });
-        console.log("Document written with ID: ");
+        console.log("Document written with ID:"+ docRef.id);
       } catch (e) {
         console.error("Error adding document: ", e);
       };
