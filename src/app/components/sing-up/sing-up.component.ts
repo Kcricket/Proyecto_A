@@ -21,6 +21,7 @@ import { getFirestore } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import {environment} from "../../../environments/environment"
 import { user } from '@angular/fire/auth';
+import { UsersService } from 'src/app/services/users.service';
 
 export function passwordsMatchValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -60,7 +61,7 @@ export class SingUpComponent implements OnInit {
     },
     { validators: passwordsMatchValidator() }
   );
-  constructor(private authService: AuthenticationService, private router: Router, private toast: HotToastService, afs: AngularFirestore) {  
+  constructor(private authService: AuthenticationService, private router: Router, private toast: HotToastService, afs: AngularFirestore, private usersService : UsersService) {  
     this.items = afs.collection('usuarios').valueChanges();
       // this.usersCollection = afs.collection<Usuario>('usuarios');
       // this.items = this.usersCollection.valueChanges();
@@ -101,12 +102,12 @@ export class SingUpComponent implements OnInit {
       return;
     }
     const { nombre, email, password, dni, grado } = this.signUpForm.value;
-    this.authService
-      .signUp(email, password)
+    (await this.authService
+      .signUp(email, password))
       .pipe(
-        // switchMap(({ user: { uid } }) =>
-        //   this.usersService.addUser({ uid, email, displaynombre: nombre })
-        // ),
+        switchMap(({ user: { uid } }) =>
+          this.usersService.addUser({ uid, email, displayName: nombre })
+        ),
         this.toast.observe({
           success: 'Congrats! You are all signed up',
           loading: 'Signing up...',
@@ -116,20 +117,6 @@ export class SingUpComponent implements OnInit {
       .subscribe(() => {
         this.router.navigate(['/home']);
       }) 
-      try {
-
-        let docRef = await addDoc(collection(this.db, "usuarios"), {
-          nombre: nombre,
-          email: email,
-          dni: dni, 
-          grado:grado,
-          fecha: new Date().toDateString()
-        });
-        console.log("Document written with ID:"+ docRef.id);
-      } catch (e) {
-        console.error("Error adding document: ", e);
-      };
-
       ;
       //this.addNewUserData(nombre, email, dni, grado);
 

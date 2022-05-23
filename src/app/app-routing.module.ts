@@ -4,6 +4,9 @@ import {LandingComponent} from "./components/landing/landing.component"
 import {LoginComponent} from "./components/login/login.component"
 import {HomeComponent} from "./components/home/home.component"
 import {SingUpComponent} from "./components/sing-up/sing-up.component"
+import {MembersComponent} from "./components/members/members.component"
+import {ProfileComponent} from "./components/profile/profile.component"
+
 
 const routes: Routes = [
   {
@@ -22,6 +25,14 @@ const routes: Routes = [
   {
     path: "singup",
     component: SingUpComponent
+  },  
+  {
+    path: "miembros",
+    component: MembersComponent
+  },
+  {
+    path: "perfil",
+    component: ProfileComponent
   }
 ];
 

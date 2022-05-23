@@ -1,0 +1,8 @@
+.user-card{
+    padding:10px;
+    margin: 10px;
+}
+.upper-btn{
+    display: flex;
+    flex-direction: row;
+}

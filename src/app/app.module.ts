@@ -15,7 +15,11 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
-
+import {MatSidenavModule } from '@angular/material/sidenav';
+import {HttpClientModule} from '@angular/common/http';
+import {MatNativeDateModule} from '@angular/material/core';
+import {FormsModule} from '@angular/forms';
+import {MaterialExampleModule} from './material.module';
 
 import { LandingComponent } from './components/landing/landing.component';
 import { LoginComponent } from './components/login/login.component';
@@ -24,6 +28,7 @@ import { HomeComponent } from './components/home/home.component';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 
+
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import {AngularFireModule } from '@angular/fire/compat';
@@ -31,6 +36,8 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 
 import { HotToastModule } from '@ngneat/hot-toast';
+import { MembersComponent } from './components/members/members.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 // import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 // import { environment } from '../environments/environment';
@@ -48,6 +55,9 @@ import { HotToastModule } from '@ngneat/hot-toast';
     LoginComponent,
     SingUpComponent,
     HomeComponent,
+    MembersComponent,
+    ProfileComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -61,6 +71,12 @@ import { HotToastModule } from '@ngneat/hot-toast';
     MatInputModule,
     ReactiveFormsModule,
     MatCardModule,
+    MatSidenavModule,
+    MaterialExampleModule,
+    FormsModule,
+    HttpClientModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
 
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),

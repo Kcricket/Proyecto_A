@@ -8,7 +8,8 @@ import {   Auth,
   UserCredential, 
 } from '@angular/fire/auth'
 import { concatMap, from, Observable, of, switchMap} from 'rxjs'
-
+import { collection, addDoc } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 
 
 @Injectable({
@@ -20,6 +21,7 @@ export class AuthenticationService {
   
   //Observable de current user 
   // En auth está todo lo que necesito para saber el estado del usuario
+  db = getFirestore();
   currentUser$ = authState(this.auth)
   constructor(private auth: Auth) {
     

@@ -1,17 +1,41 @@
-<mat-toolbar>
-  TAOWS HOME
-  <ng-template #loginButton>
-    <button mat-button routerLink="login"><mat-icon>login</mat-icon></button>
-  </ng-template>
+<mat-sidenav-container
+    class="toggler-container" (backdropClick)="close('backdrop')" >
 
-  <!-- Async es un pipe, y se le da el nombre de user -->
-  <ng-container *ngIf="authService.currentUser$ | async as user; else loginButton">
-    <button mat-button (click)="logout()">
-      <mat-icon>account_circle</mat-icon>
-    </button>
-  </ng-container>
-</mat-toolbar>
 
-<div class="content">
-  <router-outlet></router-outlet>
-</div>
+  <mat-sidenav #sidenav (keydown.escape)="close('escape')" disableClose>
+    <p><button mat-button (click)="close('toggle button')">Toggle</button></p>
+    <mat-list>
+      <mat-list-item (click)="navigate('home')">Home</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item (click)="navigate('perfil')">Profile</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item (click)="navigate('miembros')">Members</mat-list-item>
+    </mat-list>
+    
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <!-- <p>Closed due to: {{reason}}</p> -->
+
+    <mat-toolbar>
+      <p><button mat-button (click)="sidenav.open()">GYM</button></p>
+    
+      <ng-template #loginButton>
+        <button mat-button routerLink="login"><mat-icon>login</mat-icon></button>
+      </ng-template>
+      <!-- Async es un pipe, y se le da el nombre de user -->
+      <ng-container *ngIf="authService.currentUser$ | async as user; else loginButton">
+        <button class="upper-btn" mat-button (click)="logout()">
+          <mat-icon>account_circle</mat-icon>
+          <!-- <p>{{user.email}}</p> -->
+        </button>
+      </ng-container>
+    </mat-toolbar>
+    
+    
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+    
+  </mat-sidenav-content>
+</mat-sidenav-container>

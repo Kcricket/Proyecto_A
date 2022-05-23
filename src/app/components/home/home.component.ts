@@ -1,6 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service'
 import {Evento} from './evento'
+import { EventService } from '../../services/event.service'
+import { doc, setDoc } from "firebase/firestore";
+import {Directive, Input, Output, EventEmitter} from '@angular/core';
+import {
+  collection,
+  docData,
+  Firestore,
+  getDocs,
+  updateDoc,
+  query, 
+  where
+} from '@angular/fire/firestore';
+import { getFirestore } from "firebase/firestore";
+import { filter, from, map, Observable, of, switchMap } from 'rxjs';
+
+
 //import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
@@ -8,10 +24,16 @@ import {Evento} from './evento'
   styleUrls: ['./home.component.css']
 })
 
+
 export class HomeComponent implements OnInit {
   user$ = this.authService.currentUser$;
   date = new Date();
   days: string[] = [];
+  today:string= "Hola";
+  isButtonDisabled:boolean =false;
+
+  db = getFirestore();
+  userReservas: any=[];
 
   claseswc1: any[] = [];
   claseswc2: any[] = [];
@@ -52,7 +74,7 @@ export class HomeComponent implements OnInit {
 
 
 
-  constructor(private authService: AuthenticationService) { }
+  constructor(private authService: AuthenticationService, public eventService: EventService) { }
  
     
 
@@ -98,21 +120,35 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  sendReservaEvento(){
-
+ async checkHorario(day:string, uid:string, nombre:string, horario:string ){
+  var dateNow= new Date()
+  var currentDay = "Dia "+dateNow.getDate()+" "+this.nameDay(dateNow.getDay())?.dia
+  if(day===currentDay){
+    let data:any[] = await this.eventService.getHorario(uid)
+    console.log(data)
+    data.forEach((element: any) => {
+      console.log(day)
+        if(element.horaE==horario){
+          this.isButtonDisabled = true
+        }else{
+          this.isButtonDisabled = false
+        }
+      
+    });
+  }else{
+    this.isButtonDisabled = false
   }
-  log(u: any){
-    console.log(u)
-  }
+ }
 
-  
   ngOnInit(): void {
+
     for (let i = new Date().getDate(); i <= this.lastDay; i++) {
       if (
         i === new Date().getDate() &&
         this.date.getMonth() === new Date().getMonth()
       ) {
         this.days.push("Dia "+i+" "+this.nameDay(this.date.getDay())?.dia);
+        this.today = "Dia "+i+" "+this.nameDay(this.date.getDay())?.dia
         this.claseswc1.push({reserva: {nombre: this.nameDay(this.getDayByDate(i))?.clases?.wc?.nombre, hora: this.nameDay(this.getDayByDate(i))?.clases?.wc.hora}});
         this.claseswc2.push({reserva: {nombre: this.nameDay(this.getDayByDate(i))?.clases?.wc2?.nombre, hora: this.nameDay(this.getDayByDate(i))?.clases?.wc2?.hora}});
         this.clasesbjj.push({reserva: {nombre: this.nameDay(this.getDayByDate(i))?.clases?.bjj?.nombre, hora: this.nameDay(this.getDayByDate(i))?.clases?.bjj?.hora}});
@@ -133,4 +169,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  
+
 }
+

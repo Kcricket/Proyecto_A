@@ -1,14 +1,17 @@
 <div class="containerHome">
     <p>home works!</p>
-    <h1 *ngIf="user$ | async as user"> Welcome, {{user.email}}</h1>
+    <h1 *ngIf="user$ | async as user"> Welcome, {{user.email}}{{user.uid}} </h1>
     <div class="containerEventos" *ngIf="user$ | async as user">
         <mat-card class="momCard" *ngFor="let day of this.days ; index as i" style="background-color:aqua">
+            <!-- <h1 *ngIf="this.eventService.checkHorario(user.uid, this.claseswc1[i].reserva.nombre, this.claseswc1[i].reserva.hora )" class="">Holaaaaa</h1> -->
             <h1>{{day}}</h1>
             <br>
             <mat-card class="sonCard" style="background-color:red" *ngIf="this.claseswc1[i].reserva.nombre != undefined">
                 <p>{{this.claseswc1[i].reserva.nombre}}</p>
                 <p>{{this.claseswc1[i].reserva.hora}}</p>
-                <button mat-button (click)="log(user)" color="primary" type="submit">
+                <!-- [disabled]="this.isButtonDisabled?true:null"  -->
+                <button #submitButton mat-button 
+                (click)="this.eventService.sendReserva(user.uid, 'USerx', this.claseswc1[i].reserva.nombre, user.email, this.claseswc1[i].reserva.hora ); submitButton.disabled=true" color="primary" type="submit">
                     Reserva
                 </button>
             </mat-card>
