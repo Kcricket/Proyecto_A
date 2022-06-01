@@ -38,7 +38,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { MembersComponent } from './components/members/members.component';
 import { ProfileComponent } from './components/profile/profile.component';
-
+import { AdminComponent } from './components/admin/admin.component';
 // import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 // import { environment } from '../environments/environment';
 // import { provideAuth, getAuth } from '@angular/fire/auth';
@@ -57,6 +57,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     HomeComponent,
     MembersComponent,
     ProfileComponent,
+    AdminComponent
     
   ],
   imports: [

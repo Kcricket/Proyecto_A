@@ -3,6 +3,7 @@ import { AuthenticationService } from './services/authentication.service'
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import {MatSidenav} from '@angular/material/sidenav';
+import { UsersService } from './services/users.service';
 
 @Component({
   selector: 'app-root',
@@ -11,9 +12,14 @@ import {MatSidenav} from '@angular/material/sidenav';
 })
 export class AppComponent {
   title = 'angular_prueba3';
+  user$ = this.usersService.currentUserProfile$;
   @ViewChild('sidenav')
   sidenav!: MatSidenav;
-  constructor(public authService: AuthenticationService, private router: Router){
+  constructor(
+    public authService: AuthenticationService, 
+    private router: Router,
+    private usersService: UsersService
+    ){
 
   }
   reason = '';

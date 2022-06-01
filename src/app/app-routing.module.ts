@@ -6,6 +6,7 @@ import {HomeComponent} from "./components/home/home.component"
 import {SingUpComponent} from "./components/sing-up/sing-up.component"
 import {MembersComponent} from "./components/members/members.component"
 import {ProfileComponent} from "./components/profile/profile.component"
+import { AdminComponent } from './components/admin/admin.component';
 
 
 const routes: Routes = [
@@ -33,6 +34,10 @@ const routes: Routes = [
   {
     path: "perfil",
     component: ProfileComponent
+  },
+  {
+    path: "admin",
+    component: AdminComponent
   }
 ];
 

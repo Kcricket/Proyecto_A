@@ -64,20 +64,21 @@ export class EventService {
     }));
   }
 
-  async getHorario(uid:string){
-    var utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
-    var reservasUserList: object[] = []
+  // async getHorario(){
+  //   //let uid = this.user$.uid;
+  //   var utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+  //   var reservasUserList: object[] = []
 
-    const docRef = collection(this.db, "usuarios", uid, "reservasUsuario");
-    //DEVUELVE LAS RESERVAS DE HOY
-    const q = query(docRef, where("diaReserva", "==", utc));
+  //   const docRef = collection(this.db, "usuarios", uid, "reservasUsuario");
+  //   //DEVUELVE LAS RESERVAS DE HOY
+  //   const q = query(docRef, where("diaReserva", "==", utc));
 
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
-      reservasUserList.push(doc.data())
-    });
-    return reservasUserList;
-   }
+  //   const querySnapshot = await getDocs(q);
+  //   querySnapshot.forEach((doc) => {
+  //     // doc.data() is never undefined for query doc snapshots
+  //     console.log(doc.id, " => ", doc.data());
+  //     reservasUserList.push(doc.data())
+  //   });
+  //   return reservasUserList;
+  //  }
 }

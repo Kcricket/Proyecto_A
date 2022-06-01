@@ -24,8 +24,9 @@
         <button mat-button routerLink="login"><mat-icon>login</mat-icon></button>
       </ng-template>
       <!-- Async es un pipe, y se le da el nombre de user -->
-      <ng-container *ngIf="authService.currentUser$ | async as user; else loginButton">
+      <ng-container *ngIf="user$ | async as user; else loginButton">
         <button class="upper-btn" mat-button (click)="logout()">
+        {{ user.displayName }}
           <mat-icon>account_circle</mat-icon>
           <!-- <p>{{user.email}}</p> -->
         </button>

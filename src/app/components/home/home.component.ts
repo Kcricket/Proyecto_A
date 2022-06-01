@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
   date = new Date();
   days: string[] = [];
   today:string= "Hola";
+  datax:any[]=[]
   isButtonDisabled:boolean =false;
 
   db = getFirestore();
@@ -124,9 +125,8 @@ export class HomeComponent implements OnInit {
   var dateNow= new Date()
   var currentDay = "Dia "+dateNow.getDate()+" "+this.nameDay(dateNow.getDay())?.dia
   if(day===currentDay){
-    let data:any[] = await this.eventService.getHorario(uid)
-    console.log(data)
-    data.forEach((element: any) => {
+    console.log(this.datax)
+    this.datax.forEach((element: any) => {
       console.log(day)
         if(element.horaE==horario){
           this.isButtonDisabled = true
@@ -140,8 +140,13 @@ export class HomeComponent implements OnInit {
   }
  }
 
-  ngOnInit(): void {
+ async ask(){
+  //this.datax = await this.eventService.getHorario()
 
+ }
+
+  ngOnInit(): void {
+    this.ask()
     for (let i = new Date().getDate(); i <= this.lastDay; i++) {
       if (
         i === new Date().getDate() &&
