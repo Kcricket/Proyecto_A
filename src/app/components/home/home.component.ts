@@ -141,14 +141,14 @@ export class HomeComponent implements OnInit {
  }
 
  async ask(){
-  //this.datax = await this.eventService.getHorario()
-
+  //this.datax = await this.eventService.getHorario(user?.uid)
  }
 
   ngOnInit(): void {
     this.ask()
     for (let i = new Date().getDate(); i <= this.lastDay; i++) {
       if (
+        //--------------------------------------------------------
         i === new Date().getDate() &&
         this.date.getMonth() === new Date().getMonth()
       ) {
@@ -161,14 +161,13 @@ export class HomeComponent implements OnInit {
         this.clasesesk.push({reserva: {nombre: this.nameDay(this.getDayByDate(i))?.clases?.esk?.nombre, hora: this.nameDay(this.getDayByDate(i))?.clases?.esk?.hora}});
 
       } else {
+        //--------------------------------------------------------
       this.days.push("Dia "+i+" "+this.nameDay(this.getDayByDate(i))?.dia);
       this.claseswc1.push({reserva: {nombre: this.nameDay(this.getDayByDate(i))?.clases?.wc?.nombre, hora: this.nameDay(this.getDayByDate(i))?.clases?.wc.hora}});
       this.claseswc2.push({reserva: {nombre: this.nameDay(this.getDayByDate(i))?.clases?.wc2?.nombre, hora: this.nameDay(this.getDayByDate(i))?.clases?.wc2?.hora}});
       this.clasesbjj.push({reserva: {nombre: this.nameDay(this.getDayByDate(i))?.clases?.bjj?.nombre, hora: this.nameDay(this.getDayByDate(i))?.clases?.bjj?.hora}});
       this.clasesbjj2.push({reserva: {nombre: this.nameDay(this.getDayByDate(i))?.clases?.bjj2?.nombre, hora: this.nameDay(this.getDayByDate(i))?.clases?.bjj2?.hora}});
       this.clasesesk.push({reserva: {nombre: this.nameDay(this.getDayByDate(i))?.clases?.esk?.nombre, hora: this.nameDay(this.getDayByDate(i))?.clases?.esk?.hora}});
-      
-
         //nameDay(getDayByDate(i)).dia
       }
     }
