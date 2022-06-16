@@ -17,19 +17,41 @@
   <mat-sidenav-content>
     <!-- <p>Closed due to: {{reason}}</p> -->
 
-    <mat-toolbar>
+    <mat-toolbar class="upper-navbar">
       <p><button mat-button (click)="sidenav.open()">GYM</button></p>
     
       <ng-template #loginButton>
         <button mat-button routerLink="login"><mat-icon>login</mat-icon></button>
       </ng-template>
       <!-- Async es un pipe, y se le da el nombre de user -->
-      <ng-container *ngIf="user$ | async as user; else loginButton">
+      <ng-container *ngIf="user$ | async as user; else loginButton" class="user-navbar-menu">
+        <!-- Login-unlogin button -->
         <button class="upper-btn" mat-button (click)="logout()">
         {{ user.displayName }}
           <mat-icon>account_circle</mat-icon>
           <!-- <p>{{user.email}}</p> -->
         </button>
+        <!-- container de las reservas -->
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" style="margin: 50px">
+          <!-- <mat-icon>more_vert</mat-icon> -->
+          Mis Reservas
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>dialpad</mat-icon>
+            <span>Redial</span>
+          </button>
+          <button mat-menu-item disabled>
+            <mat-icon>voicemail</mat-icon>
+            <span>Check voice mail</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>notifications_off</mat-icon>
+            <span>Disable alerts</span>
+          </button>
+        </mat-menu>
+        
+
       </ng-container>
     </mat-toolbar>
     

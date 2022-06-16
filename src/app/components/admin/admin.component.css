@@ -16,3 +16,7 @@
     height: 300px;
     width: 300px;
   }
+
+  #divBarChart{
+    max-width: 100%;
+  }

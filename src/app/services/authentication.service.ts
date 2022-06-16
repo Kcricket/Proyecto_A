@@ -5,11 +5,15 @@ import {   Auth,
   createUserWithEmailAndPassword,
   updateProfile,
   UserInfo,
-  UserCredential, 
+  UserCredential,
+  user, 
+  getAuth,
+  onAuthStateChanged
 } from '@angular/fire/auth'
-import { concatMap, from, Observable, of, switchMap} from 'rxjs'
-import { collection, addDoc } from "firebase/firestore";
+import { concatMap, filter, first, from, Observable, of, switchMap} from 'rxjs'
+import { doc, docData } from "@angular/fire/firestore";
 import { getFirestore } from "firebase/firestore";
+import { ProfileUser } from '../models/user';
 
 
 @Injectable({
@@ -22,7 +26,13 @@ export class AuthenticationService {
   //Observable de current user 
   // En auth está todo lo que necesito para saber el estado del usuario
   db = getFirestore();
-  currentUser$ = authState(this.auth)
+  currentUser$ = authState(this.auth);
+  private authx = getAuth()
+  private user = this.authx.currentUser;
+  public trap:string = ""
+
+  //private userIdent: any;
+
   constructor(private auth: Auth) {
     
    }
@@ -39,4 +49,19 @@ export class AuthenticationService {
   logout(){
     return from(this.auth.signOut())
   }
+
+  getUid(){
+    this.auth.onAuthStateChanged((user) => {
+      if (user) {
+        // User logged in already or has just logged in.
+        //console.log(user.uid)
+        return user.uid.toString
+        //alert(user.uid);
+      } else {
+        // User not logged in or has just logged out.
+        return "no id has been found"
+      }
+    });
+  }
+
 }

@@ -4,3 +4,9 @@
 .toggler-container{
     height:100%
 }
+.upper-navbar{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10px;
+}

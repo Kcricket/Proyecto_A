@@ -2,9 +2,24 @@
     margin: 10px;
 }
 
+
 .sonCard{
     margin: 10px;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
+
+.sonCard2{
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.grandSon2{
+    display: flex;
+    flex-direction: column;
 }

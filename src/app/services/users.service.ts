@@ -4,7 +4,8 @@ import {
   doc,
   docData,
   Firestore,
-  getDoc,
+  getFirestore,
+  getDocs,
   setDoc,
   updateDoc,
 } from '@angular/fire/firestore';
@@ -16,6 +17,9 @@ import { AuthenticationService } from './authentication.service';
   providedIn: 'root',
 })
 export class UsersService {
+  userList: any[] = [];
+  db = getFirestore();
+
   constructor(private firestore: Firestore, private authenticationService: AuthenticationService) {}
 
   get currentUserProfile$(): Observable<ProfileUser | null> {
@@ -39,5 +43,16 @@ export class UsersService {
   updateUser(user: ProfileUser): Observable<void> {
     const ref = doc(this.firestore, 'usuarios', user.uid);
     return from(updateDoc(ref, { ...user }));
+  }
+//Buena forma de iterar users con objetos
+  async loadMembers(list:any[]){
+    const querySnapshot = await getDocs(collection(this.db, "usuarios"));
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, " => ", doc.data());
+      let x = doc.data()
+      list.push({uid: doc.id, x})
+    });
+
   }
 }

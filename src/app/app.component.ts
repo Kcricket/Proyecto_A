@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import {MatSidenav} from '@angular/material/sidenav';
 import { UsersService } from './services/users.service';
+import { EventService } from './services/event.service';
+
 
 @Component({
   selector: 'app-root',
@@ -13,12 +15,14 @@ import { UsersService } from './services/users.service';
 export class AppComponent {
   title = 'angular_prueba3';
   user$ = this.usersService.currentUserProfile$;
+
   @ViewChild('sidenav')
   sidenav!: MatSidenav;
   constructor(
     public authService: AuthenticationService, 
     private router: Router,
-    private usersService: UsersService
+    private usersService: UsersService,
+    public evServ: EventService
     ){
 
   }
