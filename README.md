@@ -1,5 +1,6 @@
 URL en producción: https://database-prueba-391e7.web.app/admin
 
+Documentación dentro del proyecto.
 # AngularPrueba3
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
