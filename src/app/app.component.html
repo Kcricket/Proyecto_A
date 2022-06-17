@@ -2,14 +2,16 @@
     class="toggler-container" (backdropClick)="close('backdrop')" >
 
 
-  <mat-sidenav #sidenav (keydown.escape)="close('escape')" disableClose>
+  <mat-sidenav #sidenav (keydown.escape)="close('escape')" disableClose id="sidenav">
     <p><button mat-button (click)="close('toggle button')">Toggle</button></p>
-    <mat-list>
+    <mat-list class="panel-list">
       <mat-list-item (click)="navigate('home')">Home</mat-list-item>
       <mat-divider></mat-divider>
       <mat-list-item (click)="navigate('perfil')">Profile</mat-list-item>
       <mat-divider></mat-divider>
       <mat-list-item (click)="navigate('miembros')">Members</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item (click)="navigate('admin')" *ngIf="this.admin==true">Admin</mat-list-item>
     </mat-list>
     
   </mat-sidenav>

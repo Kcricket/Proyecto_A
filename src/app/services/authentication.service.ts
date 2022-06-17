@@ -14,6 +14,7 @@ import { concatMap, filter, first, from, Observable, of, switchMap} from 'rxjs'
 import { doc, docData } from "@angular/fire/firestore";
 import { getFirestore } from "firebase/firestore";
 import { ProfileUser } from '../models/user';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 
 @Injectable({
@@ -25,6 +26,7 @@ export class AuthenticationService {
   
   //Observable de current user 
   // En auth está todo lo que necesito para saber el estado del usuario
+  admin:boolean= false;
   db = getFirestore();
   currentUser$ = authState(this.auth);
   private authx = getAuth()
@@ -33,7 +35,7 @@ export class AuthenticationService {
 
   //private userIdent: any;
 
-  constructor(private auth: Auth) {
+  constructor(private auth: Auth, private authfirebase: AngularFireAuth) {
     
    }
 
@@ -63,5 +65,7 @@ export class AuthenticationService {
       }
     });
   }
-
+  stateUser(){
+    return this.authfirebase.authState
+  }
 }

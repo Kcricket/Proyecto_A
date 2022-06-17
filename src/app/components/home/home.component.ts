@@ -16,9 +16,9 @@ import {
   onSnapshot
 } from '@angular/fire/firestore';
 import { Auth, authState} from '@angular/fire/auth'
-
 import { getFirestore } from "firebase/firestore";
 import { filter, from, map, Observable, of, switchMap } from 'rxjs';
+import { HotToastService } from '@ngneat/hot-toast';
 
 
 //import { Router } from '@angular/router';
@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit {
   days: string[] = [];
   today:string= "Hola";
   datax:any[]=[]
+  eventos:any[]=[]
   isButtonDisabled:boolean =false;
 
   db = getFirestore();
@@ -184,6 +185,30 @@ async loadThisUserReservationsService(){
   return cities
   
 }
+
+async loadEvents(){
+  var xx:any[]=[]
+  this.auth.onAuthStateChanged((user) => {
+    if (user) {
+      console.log(user.uid)
+      const q = query(collection(this.db, `evento`));
+      onSnapshot(q, (querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          xx.push(doc.data());
+          this.eventos = xx
+        });
+    
+        console.log("Current cities in CA: ", xx.join(", "));
+      });
+      //alert(user.uid);
+    } else {
+      // User not logged in or has just logged out.
+      return "no id has been found"
+    }
+  });
+  return xx
+  
+}
 checkChanges(){
   const q = query(collection(this.db, "usuarios/6OXD9KvkjReEsrWeIhIvGlTdnWv1/reservasUsuario"));
   const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -202,10 +227,8 @@ checkChanges(){
 }
 
   ngOnInit(): void {
-    //var utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
     this.loadThisUserReservationsService()
-
-    //this.thisUserRes = this.eventService.fetchAvailableExercises();
+    this.loadEvents()
     for (let i = new Date().getDate(); i <= this.lastDay; i++) {
 
       //if()

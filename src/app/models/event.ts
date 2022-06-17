@@ -5,6 +5,7 @@ export interface Evento {
     asistentes?:string;
     adminCreador?:string;
     fechaEvento?:string;
+    descripcion?:string;
   }
 
   

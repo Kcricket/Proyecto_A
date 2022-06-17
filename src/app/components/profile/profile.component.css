@@ -24,3 +24,10 @@ img{
     width: 70%;
 
 }
+.margin-top{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}

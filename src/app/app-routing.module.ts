@@ -7,6 +7,7 @@ import {SingUpComponent} from "./components/sing-up/sing-up.component"
 import {MembersComponent} from "./components/members/members.component"
 import {ProfileComponent} from "./components/profile/profile.component"
 import { AdminComponent } from './components/admin/admin.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 
 const routes: Routes = [
@@ -38,7 +39,9 @@ const routes: Routes = [
   {
     path: "admin",
     component: AdminComponent
-  }
+  },
+  {path: '404', component: NotFoundComponent},
+  {path: '**', redirectTo: '/404'}
 ];
 
 @NgModule({

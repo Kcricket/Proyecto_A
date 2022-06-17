@@ -1,6 +1,5 @@
 <div class="containerHome">
-    <p>home works!</p>
-    <h1 *ngIf="user$ | async as user"> Welcome, {{user.email}}{{user.uid}}</h1>
+    <h1 *ngIf="user$ | async as user"> Reserva tus clases con antelación</h1>
     <mat-tab-group>
         <mat-tab label="Reservar"> 
             <div class="container-main-home">
@@ -70,6 +69,21 @@
                         <p>{{res.horaE}}</p>
                         <p>{{res.diaEvento}}</p>
                     </div>
+                </mat-card>
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Eventos"> 
+            <div class="event-card" *ngFor="let res of this.eventos">
+                <mat-card class="event-card-container">
+                    <div class="div-titile-card">
+                        <h2 class="event-title">{{res.name}}</h2>
+                    </div>
+                    <mat-card-subtitle>El {{res.fecha}} a las {{res.hora}}</mat-card-subtitle>
+                    <mat-card-content>
+                        <p>{{res.descripcion}}</p>
+                    </mat-card-content>
+                    <button mat-button color="primary">Reservar</button>
                 </mat-card>
             </div>
         </mat-tab>

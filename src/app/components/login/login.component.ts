@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
     email: new FormControl("", [Validators.required, Validators.email]),
     password: new FormControl("", [Validators.required]),
   });
-  constructor(private authService: AuthenticationService, private router: Router, private toast: HotToastService) { }
+  constructor( private authService: AuthenticationService, private router: Router, private toast: HotToastService) { }
 
   ngOnInit(): void {
   }
@@ -43,5 +43,9 @@ export class LoginComponent implements OnInit {
     });
  
   }
+  navigate(route:string){
+    this.router.navigate([route])
+  }
+  
 
 }

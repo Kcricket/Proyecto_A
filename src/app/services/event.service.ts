@@ -17,11 +17,14 @@ import { map } from 'rxjs/operators';
 
 //import { Subject } from 'rxjs/Subject';
 import { Reserva } from '../models/reserva';
+import { Evento } from '../models/event';
 import { AuthenticationService } from './authentication.service';
 import { getFirestore } from "firebase/firestore";
 import { Auth, authState} from '@angular/fire/auth'
 import * as firebase from '../../environments/environment';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { HotToastService } from '@ngneat/hot-toast';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -32,7 +35,7 @@ export class EventService {
   availableExercises: Reserva[] = [];
 
 
-  constructor(private firestore: Firestore, private authenticationService: AuthenticationService, private auth: Auth, private dbx: AngularFirestore) { 
+  constructor(private toast: HotToastService, private firestore: Firestore, private authenticationService: AuthenticationService, private auth: Auth, private dbx: AngularFirestore) { 
     //this.itemDoc = dbx.doc<Reserva>('usuarios/6OXD9KvkjReEsrWeIhIvGlTdnWv1');
   }
   fetchAvailableExercises() {
@@ -55,18 +58,18 @@ export class EventService {
   }
   
 
-  get currentUserProfile$(): Observable<Reserva | null> {
-    return this.authenticationService.currentUser$.pipe(
-      switchMap((user) => {
-        if (!user?.uid) {
-          return of(null);
-        }
+  // get currentUserProfile$(): Observable<Reserva | null> {
+  //   return this.authenticationService.currentUser$.pipe(
+  //     switchMap((user) => {
+  //       if (!user?.uid) {
+  //         return of(null);
+  //       }
 
-        const ref = doc(this.firestore, 'reservas', user?.uid);
-        return docData(ref) as Observable<Reserva>;
-      })
-    );
-  }
+  //       const ref = doc(this.firestore, 'reservas', user?.uid);
+  //       return docData(ref) as Observable<Reserva>;
+  //     })
+  //   );
+  // }
 
   // async loadThisUserReservations(){
   //   var list:any[] = []
@@ -101,9 +104,10 @@ export class EventService {
     });
     if(bool==false){
         this.send(currentid, user, clase, email, hora, day)
+        this.toast.success(`Has reservado la clase de ${clase} el día ${day} a las ${hora}`)
     }else{
-      alert("Ya has reservado esta clase")
-      console.log("Ya has reservado esta clase")
+      this.toast.warning("Ya reservaste esta clase!")
+
     }
     
   }
@@ -143,6 +147,23 @@ export class EventService {
     }));
   }
 
+  // get currentEvents$(): Observable<Evento | null> {
+  //   return this.authenticationService.currentUser$.pipe(
+  //     switchMap((user) => {
+  //       if (!user?.uid) {
+  //         return of(null);
+  //       }
+  //       const q = query(collection(this.firestore, "evento"));
+  //       const ref = doc(this.firestore, 'evento', user?.uid);
+  //       return docData(q) as Observable<Evento>;
+  //     })
+  //   );
+  // }
+
+  // updateEvent(event: Evento): Observable<void> {
+  //   const ref = doc(this.firestore, 'eventos', event.uidE);
+  //   return from(updateDoc(ref, { ...event }));
+  // }
 
 
   getHorario(){

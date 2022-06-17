@@ -39,7 +39,7 @@ import { HotToastModule } from '@ngneat/hot-toast';
 import { MembersComponent } from './components/members/members.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AdminComponent } from './components/admin/admin.component';
-
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 // import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 // import { environment } from '../environments/environment';
@@ -60,7 +60,8 @@ import { AdminComponent } from './components/admin/admin.component';
     HomeComponent,
     MembersComponent,
     ProfileComponent,
-    AdminComponent
+    AdminComponent,
+    NotFoundComponent
     
   ],
   imports: [
