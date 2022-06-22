@@ -15,21 +15,38 @@ export class MembersComponent implements OnInit {
   user$ = this.authService.currentUser$;
   db = getFirestore();
   userList: any[] = [];
+  searchInput=""
+
 
 
   //querySnapshot = await getDocs(collection(db, "cities"));
   constructor(private authService: AuthenticationService) { }
   clog(x:any){
-    console.log(x)
+    //console.log(x)
   }
+
+
+  filterNotes(){
+    let key= this.searchInput
+    var result=[]
+    this.userList.forEach(element => {
+        element.visible = true
+        if(element.x.displayName.includes(key)){
+            result.push(element)
+        }else{
+            element.visible = false
+        }
+    });
+}
+
 
   async loadMembers(){
     const querySnapshot = await getDocs(collection(this.db, "usuarios"));
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
+      //console.log(doc.id, " => ", doc.data());
       let x = doc.data()
-      this.userList.push({uid: doc.id, x})
+      this.userList.push({name: "doc", x, visible: true})
     });
 
   }

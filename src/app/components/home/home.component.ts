@@ -114,7 +114,7 @@ export class HomeComponent implements OnInit {
     //console.log(day)
     var datex = new Date();
     datex.setDate(day);
-    console.log(datex.getDate())
+    //console.log(datex.getDate())
     //this.horario[2].clases.wc[1].nombre
     return datex.getDay();
   }
@@ -131,9 +131,9 @@ export class HomeComponent implements OnInit {
   var dateNow= new Date()
   var currentDay = "Dia "+dateNow.getDate()+" "+this.nameDay(dateNow.getDay())?.dia
   if(day===currentDay){
-    console.log(this.datax)
+    //console.log(this.datax)
     this.datax.forEach((element: any) => {
-      console.log(day)
+      //console.log(day)
         if(element.horaE==horario){
           this.isButtonDisabled = true
         }else{
@@ -164,7 +164,7 @@ async loadThisUserReservationsService(){
   var cities:any[]=[]
   this.auth.onAuthStateChanged((user) => {
     if (user) {
-      console.log(user.uid)
+      //console.log(user.uid)
       const q = query(collection(this.db, `usuarios/${user.uid}/reservasUsuario`));
       onSnapshot(q, (querySnapshot) => {
         var cities:any[] = [];
@@ -173,7 +173,7 @@ async loadThisUserReservationsService(){
           this.thisUserRes = cities
         });
     
-        console.log("Current cities in CA: ", cities.join(", "));
+        //console.log("Current cities in CA: ", cities.join(", "));
         return cities
       });
       //alert(user.uid);
@@ -190,7 +190,7 @@ async loadEvents(){
   var xx:any[]=[]
   this.auth.onAuthStateChanged((user) => {
     if (user) {
-      console.log(user.uid)
+      //console.log(user.uid)
       const q = query(collection(this.db, `evento`));
       onSnapshot(q, (querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -198,7 +198,7 @@ async loadEvents(){
           this.eventos = xx
         });
     
-        console.log("Current cities in CA: ", xx.join(", "));
+        //console.log("Current cities in CA: ", xx.join(", "));
       });
       //alert(user.uid);
     } else {

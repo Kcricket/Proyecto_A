@@ -30,19 +30,19 @@ export class AppComponent {
     ){
       this.authService.stateUser().subscribe(res => {
         if(res){
-          console.log("Logged")
+          //console.log("Logged")
           this.loged= true
           if(res.uid=="PwN5ifx8kNVMqzg9jt9RrSejHWW2"){
             this.admin= true
             this.authService.admin=true
-            console.log("Admin Entró a la sala")
+            //console.log("Admin Entró a la sala")
           }else{
             this.admin=false
             this.authService.admin=false
 
           }
         }else{
-          console.log("Not Logged")
+          //console.log("Not Logged")
           this.loged= false
         }
       })

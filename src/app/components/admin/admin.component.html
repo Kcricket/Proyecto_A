@@ -1,13 +1,20 @@
 <div *ngIf="this.authService.admin==true" style="height: 100%">
   <mat-tab-group dynamicHeight style="height: 100%;">
+ 
       <mat-tab label="Mis Alumnos">
-        <div>
-          <button>Pagados</button>
-          <button>Por Pagar</button>
-        </div>
+        <div class="searchInp" style="padding-top: 10px;">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Cuidado con las mayúsculas</mat-label>
+            <input matInput placeholder="Ex. Pablo.." value="" [(ngModel)]="searchInput" (keydown)="filterNotes()" id="searchInput">
+          </mat-form-field>
+          <!-- <input id="searchInput" type="text" class="input" placeholder="search a note" [(ngModel)]="searchInput">  -->
+          <button mat-button (click)="filterNotes()">Filter</button>
+          <button mat-button (click)="loadAlumnos()">Cargar todos los Alumnos</button>
+
+      </div>
           <mat-accordion *ngFor="let user of userListx">
               <mat-expansion-panel (opened)="panelOpenState = true"
-                                  (closed)="panelOpenState = false">
+                                  (closed)="panelOpenState = false" *ngIf="user.visible == true">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                       {{user.x.displayName}}
@@ -17,7 +24,7 @@
                   </mat-panel-description>
                 </mat-expansion-panel-header>
                 <div class="member-payment">
-                  <button (click)="this.usersService.sendPago(user.x.displayName, user.uid)">Pagar Este Mes</button>
+                  <button mat-button (click)="this.usersService.sendPago(user.x.displayName, user.uid)">Pagar Este Mes</button>
                   <!-- //-------------------------------------------------------- -->
                   <section class="example-container mat-elevation-z8" tabindex="0">
                     <table mat-table [dataSource]="this.findMe(user.x.displayName)">
@@ -113,7 +120,7 @@
                   placeholder="Descripción del evento"
                 />
               </mat-form-field>
-            <button type="submit" class="margin-top" mat-raised-button color="primary">
+            <button type="submit" class="margin-top" mat-raised-button color="primary" style="max-width:25px">
               Save
             </button>
           </form>
@@ -122,53 +129,11 @@
 
   <!-- -------------------------------------------------------- -->
 
-      <mat-tab label="Estadísticas" id="divBarChart">
-        <mat-accordion *ngFor="let user of usuariosPagados">
-          <mat-expansion-panel (opened)="panelOpenState = true"
-                              (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                  {{user.x.displayName}}
-              </mat-panel-title>
-              <mat-panel-description>
-                {{user.x.email}}
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <div class="member-payment">
-              <button (click)="this.usersService.sendPago(user.x.displayName, user.uid)">Pagar Este Mes</button>
-              <!-- //-------------------------------------------------------- -->
-              <section class="example-container mat-elevation-z8" tabindex="0">
-                <table mat-table [dataSource]="this.findMe(user.x.displayName)">
-              
-                  <!-- Name Column -->
-                  <ng-container matColumnDef="nombre" sticky>
-                    <th mat-header-cell *matHeaderCellDef> Nombre </th>
-                    <td mat-cell *matCellDef="let element"> {{element.nombre2}} </td>
-                  </ng-container>
-              
-                  <!-- Position Column -->
-                  <ng-container matColumnDef="mesPagado">
-                    <th mat-header-cell *matHeaderCellDef> Mes Pagado </th>
-                    <td mat-cell *matCellDef="let element"> {{element.mesPagado}} </td>
-                  </ng-container>
-              
-                  <!-- Weight Column -->
-                  <ng-container matColumnDef="pagadoElDia">
-                    <th mat-header-cell *matHeaderCellDef> Dia del pago </th>
-                    <td mat-cell *matCellDef="let element"> {{element.pagadoElDia}} </td>
-                  </ng-container>
-              
-              
-                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
-              </section>
-                <!-- //-------------------------------------------------------- -->
-            </div>
-          </mat-expansion-panel>
-        </mat-accordion>
-
-      </mat-tab>
+      <!-- <mat-tab label="Estadísticas" id="divBarChart">
+        <div *ngFor="let userr of userListAndPagos2">
+          <p>{{userr.nombre}}</p>
+        </div>
+      </mat-tab> -->
 
     </mat-tab-group>
     <!-- <div id="divBarChart" (window:resize)="setDimensions($event)"> -->

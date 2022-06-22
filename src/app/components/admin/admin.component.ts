@@ -35,6 +35,9 @@ export class AdminComponent implements OnInit {
   db= getFirestore()
   userListx: any[] = [];
   userListAndPagos:any[]= [];
+  userListAndPagos2:any[]= [];
+  searchInput= ""
+
   panelOpenState = false;
   usuariosPagados:any[]=[]
   //event$ = this.eventService.currentEvents$;
@@ -63,7 +66,7 @@ export class AdminComponent implements OnInit {
     this.loadMembers(this.userListx)
     this.loadMembersPagados(this.usuariosPagados)
 
-    console.log(this.userListx)
+    //console.log(this.userListx)
     //console.log(this.userListAndPagos)
     google.charts.load('current', {packages: ['corechart']});
     //google.charts.setOnLoadCallback(this.drawChart);
@@ -75,6 +78,32 @@ export class AdminComponent implements OnInit {
     //   });
 
   }
+
+  filterNotes(){
+    let key= this.searchInput
+    var result=[]
+    this.userListx.forEach(element => {
+        element.visible = true
+        if(element.x.displayName.includes(key)){
+            result.push(element)
+        }else{
+            element.visible = false
+        }
+    });
+}
+loadAlumnos(){
+  let key= ""
+  var result=[]
+  this.userListx.forEach(element => {
+      element.visible = true
+      if(element.x.displayName.includes(key)){
+          result.push(element)
+      }else{
+          element.visible = false
+      }
+  });
+}
+
   async submit(){
     const {nombre, fecha, hora, descripcion} = this.profileForm.value
     const docRef = await addDoc(collection(this.db, "evento"), {
@@ -83,7 +112,6 @@ export class AdminComponent implements OnInit {
       fecha:fecha.toJSON().slice(0,10).replace(/-/g,'/'),
       descripcion:descripcion
     });
-    console.log("Document written with ID: ", docRef.id);
   }
   // saveEvent() {
   //   const profileData = this.profileForm.value;
@@ -122,8 +150,8 @@ export class AdminComponent implements OnInit {
         querySnapshot.forEach((doc2) => {
           for (let index = 0; index < this.userListAndPagos.length; index++) {
             const element = this.userListAndPagos[index];
-            console.log(element.nombre)
-            console.log(doc2.data()["nombre"])
+            // console.log(element.nombre)
+            // console.log(doc2.data()["nombre"])
 
             if(element.nombre == doc2.data()["nombre"]){
               element.pagos.push(
@@ -138,7 +166,7 @@ export class AdminComponent implements OnInit {
             }
           }
         });
-        console.log(this.userListAndPagos)
+        //console.log(this.userListAndPagos)
         //console.log("Current cities in CA: ", pagos.join(", "));
         let x = doc.data()
         //console.log(list)
@@ -156,7 +184,8 @@ export class AdminComponent implements OnInit {
       this.userListAndPagos.push(
         {
           nombre: doc.data()["displayName"],
-          pagos: []
+          pagos: [],
+          visible: false
         }
       )
 
@@ -168,8 +197,8 @@ export class AdminComponent implements OnInit {
         querySnapshot.forEach((doc2) => {
           for (let index = 0; index < this.userListAndPagos.length; index++) {
             const element = this.userListAndPagos[index];
-            console.log(element.nombre)
-            console.log(doc2.data()["nombre"])
+            // console.log(element.nombre)
+            // console.log(doc2.data()["nombre"])
 
             if(element.nombre == doc2.data()["nombre"]){
               element.pagos.push(
@@ -184,13 +213,14 @@ export class AdminComponent implements OnInit {
             }
           }
         });
-        console.log(this.userListAndPagos)
+        //console.log(this.userListAndPagos)
         //console.log("Current cities in CA: ", pagos.join(", "));
         let x = doc.data()
         list.push({uid: doc.id, x})
         //console.log(list)
+        this.loadMembersPagados(this.userListAndPagos)
         return pagos
-
+        
     });
   });
   
@@ -198,56 +228,18 @@ export class AdminComponent implements OnInit {
   }
 
 
-  async loadMembersPagados(list:any[]){
-    const querySnapshot = await getDocs(collection(this.db, "usuarios"));
-
-    querySnapshot.forEach((doc) => {
-      this.userListAndPagos.push(
-        {
-          nombre: doc.data()["displayName"],
-          pagos: []
+  loadMembersPagados(list:any[]){
+    for (let index = 0; index < list.length; index++) {
+      const element = list[index];
+      for (let index2 = 0; index2 < element.pagos.length; index2++) {
+        const element2 = element.pagos[index2];
+        if(element2.codigoMes == new Date().getMonth()){
+          this.userListAndPagos2.push({nombre: element.nombre})
         }
-      )
-
-      const q = query(collection(this.db, `usuarios/${doc.id}/mesesPagados`));
-
-      // doc.data() is never undefined for query doc snapshots
-        onSnapshot(q, (querySnapshot) => {
-        var pagos:any[] = [];
-        querySnapshot.forEach((doc2) => {
-          for (var index = 0; index < this.usuariosPagados.length; index++) {
-            const element = this.usuariosPagados[index];
-            console.log(element.nombre)
-            console.log(doc2.data()["nombre"])
-
-            if(element.nombre == doc2.data()["nombre"]){
-              if(element.codigoMes == new Date().getMonth()){
-                element.pagos.push(
-                  {
-                    nombre2: doc.data()["displayName"],
-                    pagadoElDia: doc2.data()["pagadoElDia"],
-                    mesPagado: doc2.data()["mesPagado"],
-                    codigoMes: doc2.data()["codigoMes"],
-                    hora: doc2.data()["hora"],
-                  }
-                ); 
-              }else{
-                this.usuariosPagados.splice(index,1) 
-              }
-
-            }
-          }
-        });
-        console.log(this.usuariosPagados)
-        //console.log("Current cities in CA: ", pagos.join(", "));
-        let x = doc.data()
-        list.push({uid: doc.id, x})
-        //console.log(list)
-        return pagos
-
-    });
-  });
-  
+        break;
+      }
+      
+    }
 
   }
   findMe(name:string){

@@ -1,11 +1,17 @@
 <div class="containerEventos" *ngIf="user$ | async as user">
-    <p>members works with user!: {{user.email}}</p>
-    <button (click)="clog(user.uid)">Pulsa</button>
-    <div>
-        <mat-card class="user-card" *ngFor="let user of userList"> 
-            <mat-card-title>{{user.x.displayName}}</mat-card-title> 
-            <mat-card-subtitle>{{user.x.email}}</mat-card-subtitle>
-            <mat-card-content>{{user.x.grado}}</mat-card-content>
+    <div class="searchInp" style="padding-top: 10px;">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Cuidado con las mayúsculas</mat-label>
+          <input matInput placeholder="Ex. Pablo.." value="" [(ngModel)]="searchInput" (keydown)="filterNotes()" id="searchInput">
+        </mat-form-field>
+        <!-- <input id="searchInput" type="text" class="input" placeholder="search a note" [(ngModel)]="searchInput">  -->
+        <button mat-button (click)="filterNotes()">Filter</button>
+    </div>
+    <div *ngFor="let user of userList">
+        <mat-card class="user-card" *ngIf="user.visible==true" > 
+                <mat-card-title>{{user.x.displayName}}</mat-card-title> 
+                <mat-card-subtitle>{{user.x.email}}</mat-card-subtitle>
+                <mat-card-content>{{user.x.grado}}</mat-card-content>
         </mat-card>
         <!-- <li *ngFor="let user of userList"> {{user.email}} </li> -->
     </div>

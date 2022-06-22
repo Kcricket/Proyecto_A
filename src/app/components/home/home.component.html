@@ -1,11 +1,11 @@
 <div class="containerHome">
     <h1 *ngIf="user$ | async as user"> Reserva tus clases con antelación</h1>
-    <mat-tab-group>
+    <mat-tab-group *ngIf="user$ | async as user">
         <mat-tab label="Reservar"> 
             <div class="container-main-home">
                 <!-- <div class="container-reservadas"></div> -->
                 <div class="container-reservas" *ngIf="user$ | async as user">
-                    <mat-card class="momCard" *ngFor="let day of this.days ; index as i" style="background-color:aqua">
+                    <mat-card class="momCard" *ngFor="let day of this.days ; index as i" style="background-color:#000000; color:white">
                         <!-- <h1 *ngIf="this.eventService.checkHorario(user.uid, this.claseswc1[i].reserva.nombre, this.claseswc1[i].reserva.hora )" class="">Holaaaaa</h1> -->
                         <h1>{{day}}</h1>
                         <br>
@@ -83,7 +83,9 @@
                     <mat-card-content>
                         <p>{{res.descripcion}}</p>
                     </mat-card-content>
-                    <button mat-button color="primary">Reservar</button>
+                    <button mat-button 
+                    (click)="this.eventService.sendReserva(user.uid, 'USerx', res.name, user.email, res.hora, res.fecha);"
+                    color="primary">Reservar</button>
                 </mat-card>
             </div>
         </mat-tab>
