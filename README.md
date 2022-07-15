@@ -1,4 +1,4 @@
-URL en producción: https://database-prueba-391e7.web.app/admin
+URL en producción: https://database-prueba-391e7.web.app
 
 Documentación dentro del proyecto.
 # AngularPrueba3
