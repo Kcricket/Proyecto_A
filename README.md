@@ -1,6 +1,18 @@
-URL en producción: https://database-prueba-391e7.web.app
+Deployed at: https://database-prueba-391e7.web.app
 
-Documentación dentro del proyecto.
+Docs inside the project.
+
+To try using the app as administrator, log as:
+
+email: sifu1@sifu1.com
+password: sifusifu
+
+To use it as normal user go as:
+
+email: alf@alf.com
+password: alfalf
+
+
 # AngularPrueba3
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
